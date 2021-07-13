@@ -1,5 +1,7 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import styled from 'styled-components';
+
+import { useTodoState } from '../TodoContext';
 
 const TodoHeadBlock = styled.div`
     padding-top: 48px;
@@ -56,25 +58,28 @@ const getDay = (today) => {
         case 7: {
             day = '일';
             break;
-        }    
+        }
+        default:
     }
     return day;
 }
 
 function TodoHead() {
     const today = new Date();
-    const year = today.getFullYear();
-    const month = today.getMonth() + 1;
-    const date = today.getDate();
-    const day = getDay(today);
-
-    const tasks = useRef(2); 
+    const _today = {
+        year: today.getFullYear(),
+        month: today.getMonth() + 1,
+        date: today.getDate(),
+        day: getDay(today)
+    }
+    const todos = useTodoState();
+    console.log(todos);
 
     return (
         <TodoHeadBlock>
-            <h1>{year}년 {month}월 {date}일</h1>
-            <div className="day">{day}요일</div>
-            <div className="tasks-left">할 일 {tasks.current}개 남음</div>
+            <h1>{_today.year}년 {_today.month}월 {_today.date}일</h1>
+            <div className="day">{_today.day}요일</div>
+            <div className="tasks-left">할 일 {2}개 남음</div>
         </TodoHeadBlock>
     )
 }
