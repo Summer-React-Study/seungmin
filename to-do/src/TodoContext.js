@@ -30,8 +30,11 @@ const initialTodos = [
 
 function todoReducer(state, action) {
     switch (action.type) {
-        case 'CREATE':
-            return state.concat(action.todo);
+        case 'CREATE': {
+            const result = state.concat(action.todo);
+            console.log(result);
+            return result;
+        }
         case 'TOGGLE': {
             const result = state.map(todo =>
                 todo.id === action.id ? { ...todo, done: !todo.done } : todo
