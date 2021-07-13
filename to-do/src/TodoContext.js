@@ -32,12 +32,18 @@ function todoReducer(state, action) {
     switch (action.type) {
         case 'CREATE':
             return state.concat(action.todo);
-        case 'TOGGLE':
-            return state.map(todo =>
+        case 'TOGGLE': {
+            const result = state.map(todo =>
                 todo.id === action.id ? { ...todo, done: !todo.done } : todo
             );
-        case 'REMOVE':
-            return state.filter(todo => todo.id !== action.id);
+            console.log(result);
+            return result;
+        }
+        case 'REMOVE': {
+            const result = state.filter(todo => todo.id !== action.id);
+            console.log(result);
+            return result;
+        }
         default:
             throw new Error(`Unhandled action type: ${action.type}`);
     }
