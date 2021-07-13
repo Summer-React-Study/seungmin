@@ -53,6 +53,7 @@ const Text = styled.div`
     flex: 1;
     font-size: 21px;
     color: #495057;
+    cursor: pointer;
     ${props => 
         props.done &&
         css`
@@ -62,14 +63,19 @@ const Text = styled.div`
 
 function TodoItem({ id, done, text }) { 
     const dispatch = useTodoDispatch();
-    const onToggle = () => dispatch({ type: 'TOGGLE', id });
+    const onToggle = (e) => {
+        const target = e.target.closest('.remove-btn');
+        if (target) return;
+
+        dispatch({ type: 'TOGGLE', id });
+    }
     const onRemove = () => dispatch({ type: 'REMOVE', id });
 
     return (
-        <TodoItemBlock>
-            <CheckCircle done={done} onClick={onToggle}>{done && <MdDone />}</CheckCircle>
+        <TodoItemBlock  onClick={onToggle}>
+            <CheckCircle done={done}>{done && <MdDone />}</CheckCircle>
             <Text done={done}>{text}</Text>
-            <Remove onClick={onRemove}>
+            <Remove className="remove-btn" onClick={onRemove}>
                 <MdDelete />
             </Remove>
         </TodoItemBlock>
