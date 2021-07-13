@@ -27,59 +27,22 @@ const TodoHeadBlock = styled.div`
     }
 `;
 
-const getDay = (today) => {
-    let day = ''
-
-    switch(today.getDay()) {
-        case 1: {
-            day = '월';
-            break;
-        }
-        case 2: {
-            day = '화';
-            break;
-        }
-        case 3: {
-            day = '수';
-            break;
-        }
-        case 4: {
-            day = '목';
-            break;
-        }
-        case 5: {
-            day = '금';
-            break;
-        }
-        case 6: {
-            day = '토';
-            break;
-        }
-        case 7: {
-            day = '일';
-            break;
-        }
-        default:
-    }
-    return day;
-}
-
 function TodoHead() {
-    const today = new Date();
-    const _today = {
-        year: today.getFullYear(),
-        month: today.getMonth() + 1,
-        date: today.getDate(),
-        day: getDay(today)
-    }
     const todos = useTodoState();
-    console.log(todos);
+    const undoneTasks = todos.filter(todo => todo.done === false);
+    const today = new Date();
+    const dateString = today.toLocaleDateString('ko-KR', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+    });
+    const dayname = today.toLocaleDateString('ko-KR', { weekday: 'long' });
 
     return (
         <TodoHeadBlock>
-            <h1>{_today.year}년 {_today.month}월 {_today.date}일</h1>
-            <div className="day">{_today.day}요일</div>
-            <div className="tasks-left">할 일 {2}개 남음</div>
+            <h1>{dateString}</h1>
+            <div className="day">{dayname}</div>
+            <div className="tasks-left">할 일 {undoneTasks.length}개 남음</div>
         </TodoHeadBlock>
     )
 }

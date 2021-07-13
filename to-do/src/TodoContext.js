@@ -10,6 +10,21 @@ const initialTodos = [
         id: 2,
         text: '캐리어 주기',
         done: false
+    },
+    {
+        id: 3,
+        text: '리액트 공부',
+        done: true
+    },
+    {
+        id: 4,
+        text: '스터디 하기',
+        done: false
+    },
+    {
+        id: 5,
+        text: '카톡 답장',
+        done: false
     }
 ];
 
